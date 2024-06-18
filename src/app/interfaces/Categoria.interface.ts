@@ -1,6 +1,5 @@
 export interface CategoriaInterface {
-ProductoNombre:string,
-PrecioUnitario:number,
-EnStock:number,
-CategoriaId:number;
+CategoriaId:number,
+CategoriaNombre:string,
+Detalle:string
 }
