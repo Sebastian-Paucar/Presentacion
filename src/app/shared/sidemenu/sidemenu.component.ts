@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { routes } from '../../app.routes';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-sidemenu',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule,RouterModule,HttpClientModule],
   templateUrl: './sidemenu.component.html',
   styleUrl: './sidemenu.component.css'
 })

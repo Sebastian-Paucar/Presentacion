@@ -1,4 +1,4 @@
-export interface CategoriaInterface {
+export interface Categoria{
 CategoriaId:number,
 CategoriaNombre:string,
 Detalle:string
