@@ -46,6 +46,7 @@ export class CategoriasComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('El modal fue cerrado');
+      this.mostrarCategorias();
       
     });
   }
@@ -66,6 +67,7 @@ export class CategoriasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('El modal fue cerrado');
+      this.mostrarCategorias();
     });
   }
   applyFilter(event: Event) {

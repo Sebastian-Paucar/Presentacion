@@ -15,8 +15,7 @@ export class NuevaCategoriaComponent {
   tareasForm: FormGroup;
   constructor(public dialogRef: MatDialogRef<NuevaCategoriaComponent>, private fb: FormBuilder,private _categoria: ApiService) {
     this.tareasForm = this.fb.group({
-      CategoriaId: ['', [Validators.required, Validators.maxLength(100)]],
-      CategoriaNombre: ['', [Validators.required, Validators.min(0)]],
+      CategoriaNombre: ['', [Validators.required, Validators.maxLength(100)]],
       Detalle: ['', [Validators.required, Validators.min(0)]],
     });
 
@@ -36,7 +35,7 @@ export class NuevaCategoriaComponent {
         next:(data)=>{
           console.log(data);
           console.log("Creado");
-          
+          this.dialogRef.close(data);
         }
       })
       // Aquí iría la lógica para procesar los datos del formulario, como enviarlos a un backend.

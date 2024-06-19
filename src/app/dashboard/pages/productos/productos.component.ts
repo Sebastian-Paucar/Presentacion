@@ -17,47 +17,43 @@ import { NuevoProductoComponent } from './nuevo-producto/nuevo-producto.componen
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, 
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule,
     MatIconModule,MatPaginatorModule,MatSelectModule,MatButtonModule,MatDividerModule
   ,MatDialogModule],
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements AfterViewInit {
-  
+
   displayedColumns: string[] = ['Id','Nombre','Precio', 'EnStock', 'Categoria','Acciones'];
   dataSource = new MatTableDataSource<Producto>();
-  constructor(public dialog: MatDialog,private _producto: ApiService) {
-    
-  }
-  // displayedColumns: string[]=['Id','Nombre','Detalle', 'Acion'];
- 
-  @ViewChild(MatPaginator)  paginator!: MatPaginator;
+  constructor(public dialog: MatDialog,private _producto: ApiService) {}
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-
   }
-  
-  openEditUserModal(datoProducto:Producto): void {
+
+  openEditUserModal(datoProducto: Producto): void {
     const dialogRef = this.dialog.open(EditarproductoComponent, {
       width: '600px',
-      data:datoProducto
+      data: datoProducto
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('El modal fue cerrado');
-      this.mostrarProductos();
+      this.mostrarProductos(); // Recargar la tabla después de cerrar el modal
     });
   }
-  eliminar(datoProducto:Producto): void {
-    this. _producto.deleteProducto(datoProducto.ProductoId).subscribe({
-      next:(data)=>{
+
+  eliminar(datoProducto: Producto): void {
+    this._producto.deleteProducto(datoProducto.ProductoId).subscribe({
+      next: (data) => {
         console.log(data);
         this.mostrarProductos();
       }
     })
   }
-
-
 
   openCrear(): void {
     const dialogRef = this.dialog.open(NuevoProductoComponent, {
@@ -66,9 +62,10 @@ export class ProductosComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('El modal fue cerrado');
+      this.mostrarProductos(); // Recargar la tabla después de cerrar el modal
     });
-    this.mostrarProductos();
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -77,19 +74,17 @@ export class ProductosComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  mostrarProductos(){
-    this. _producto.getListProducto().subscribe({
-      next:(data)=>{
+
+  mostrarProductos() {
+    this._producto.getListProducto().subscribe({
+      next: (data) => {
         console.log(data);
-        this.dataSource.data=data;
+        this.dataSource.data = data;
       }
     })
   }
+
   ngOnInit(): void {
     this.mostrarProductos();
   }
-
-
 }
-
-
